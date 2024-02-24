@@ -11,7 +11,8 @@ public partial class Player : CharacterBody3D
 	private Vector3 syncPos = new Vector3(0, 0, 0); 
 	private Vector3 syncRot = new Vector3(0, 0, 0);
 
-	public const float Speed = 5.0f;
+	private float speed = 4.0f;
+
 	public const float Acceleration = 0.5f;
 	public const float JumpVelocity = 4.5f;
 
@@ -25,7 +26,7 @@ public partial class Player : CharacterBody3D
 
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 
-		// GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").SetMultiplayerAuthority(int.Parse(Name));
+		GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").SetMultiplayerAuthority(int.Parse(Name));
     }
 
     public override void _Input(InputEvent @event)
@@ -43,7 +44,7 @@ public partial class Player : CharacterBody3D
 
     public override void _PhysicsProcess(double delta)
 	{
-		//if (GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").GetMultiplayerAuthority() == Multiplayer.GetUniqueId()) {
+		if (GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").GetMultiplayerAuthority() == Multiplayer.GetUniqueId()) {
 			
 			Camera.Current = true; // fix camera bug
 			
@@ -56,14 +57,19 @@ public partial class Player : CharacterBody3D
 			// Handle Jump.
 			if (Input.IsActionJustPressed("jump") && IsOnFloor())
 				velocity.Y = JumpVelocity;
+			
+			if (Input.IsActionPressed("sprint") && IsOnFloor())
+				speed = 8.0f;
+			else if (Input.IsActionJustReleased("sprint"))
+				speed = 4.0f;
 
 			// Get the input direction and handle the movement/deceleration.
 			// As good practice, you should replace UI actions with custom gameplay actions.
 			Vector2 inputDir = Input.GetVector("left", "right", "forward", "backward");
 			Vector3 direction = (Head.Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
 			if (direction != Vector3.Zero) {
-				velocity.X = direction.X * Speed;
-				velocity.Z = direction.Z * Speed;
+				velocity.X = direction.X * speed;
+				velocity.Z = direction.Z * speed;
 			} else {
 				velocity.X = Mathf.MoveToward(Velocity.X, 0, Acceleration);
 				velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Acceleration);
@@ -74,11 +80,11 @@ public partial class Player : CharacterBody3D
 
 			syncPos = GlobalPosition;
 			syncRot = Head.Rotation;
-		//} else {
+		} else {
 			//				i b leeeeeeeerpin             hehe
 			GlobalPosition = GlobalPosition.Lerp(syncPos, .1f);
 			Head.Rotation = Head.Rotation.Lerp(syncRot, .5f);
-		//}
+		}
 	}
 
 	public void SetPlayerUsername(string name)

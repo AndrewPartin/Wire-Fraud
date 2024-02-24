@@ -1,0 +1,108 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5i4330p4e3kr"]
+
+[ext_resource type="Script" path="res://ServerBrowser.cs" id="1_1g02l"]
+[ext_resource type="Script" path="res://LanMultiplayerController.cs" id="1_of48o"]
+[ext_resource type="PackedScene" uid="uid://bslx3tskq2ldy" path="res://lan_server_info.tscn" id="3_1d8bg"]
+
+[node name="lan_games" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_of48o")
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 42.0
+offset_right = 97.0
+offset_bottom = 65.0
+text = "Name:"
+
+[node name="Username" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 108.0
+offset_top = 41.0
+offset_right = 574.0
+offset_bottom = 72.0
+
+[node name="Host" type="Button" parent="."]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 97.0
+offset_right = 174.0
+offset_bottom = 158.0
+text = "Host
+"
+
+[node name="Start Game" type="Button" parent="."]
+layout_mode = 0
+offset_left = 220.0
+offset_top = 96.0
+offset_right = 353.0
+offset_bottom = 160.0
+text = "Start Game"
+
+[node name="Server Browser" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_1g02l")
+ServerInfo = ExtResource("3_1d8bg")
+
+[node name="BroadcastTimer" type="Timer" parent="Server Browser"]
+
+[node name="Panel" type="Panel" parent="Server Browser"]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 198.0
+offset_right = 1123.0
+offset_bottom = 603.0
+
+[node name="Headers" type="HBoxContainer" parent="Server Browser/Panel"]
+layout_mode = 0
+offset_right = 1094.0
+offset_bottom = 40.0
+
+[node name="Server Name" type="Label" parent="Server Browser/Panel/Headers"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Server Name"
+horizontal_alignment = 1
+
+[node name="IP" type="Label" parent="Server Browser/Panel/Headers"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "IP"
+horizontal_alignment = 1
+
+[node name="Player Count" type="Label" parent="Server Browser/Panel/Headers"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Player Count"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Label" parent="Server Browser/Panel/Headers"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Servers" type="VBoxContainer" parent="Server Browser/Panel"]
+layout_mode = 0
+offset_top = 47.0
+offset_right = 1093.0
+offset_bottom = 403.0
+
+[node name="Debug" type="Label" parent="Server Browser"]
+layout_mode = 0
+offset_left = 433.0
+offset_top = 111.0
+offset_right = 597.0
+offset_bottom = 134.0
+text = "Bound to listen port: "
+
+[connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Start Game" to="." method="_on_start_game_pressed"]
+[connection signal="timeout" from="Server Browser/BroadcastTimer" to="Server Browser" method="_on_broadcast_timer_timeout"]
