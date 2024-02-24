@@ -1,0 +1,89 @@
+[gd_scene load_steps=11 format=3 uid="uid://en1dtus5acrs"]
+
+[ext_resource type="PackedScene" uid="uid://biu7fr1qn3wg8" path="res://player.tscn" id="1_1c4b4"]
+[ext_resource type="Script" path="res://World.cs" id="1_gqydn"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5ovtq"]
+sky_top_color = Color(0.807843, 0.623529, 0.945098, 1)
+sky_horizon_color = Color(0.627451, 0.631373, 0.854902, 1)
+ground_bottom_color = Color(0.627451, 0.631373, 0.854902, 1)
+
+[sub_resource type="Sky" id="Sky_al4o7"]
+sky_material = SubResource("ProceduralSkyMaterial_5ovtq")
+
+[sub_resource type="Environment" id="Environment_570qy"]
+background_mode = 2
+sky = SubResource("Sky_al4o7")
+ambient_light_source = 3
+ambient_light_sky_contribution = 0.24
+reflected_light_source = 2
+fog_light_color = Color(0.752941, 0.776471, 0.815686, 1)
+fog_sun_scatter = 0.56
+volumetric_fog_density = 0.1447
+volumetric_fog_emission = Color(0.321569, 0.321569, 0.321569, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ylpjh"]
+albedo_color = Color(0.996078, 0.666667, 1, 1)
+metallic = 0.65
+metallic_specular = 0.9
+roughness = 0.83
+
+[sub_resource type="Gradient" id="Gradient_lu5fa"]
+offsets = PackedFloat32Array(0.327869, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2wuiv"]
+frequency = 0.0238
+fractal_octaves = 6
+fractal_weighted_strength = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_c3hu5"]
+seamless = true
+seamless_blend_skirt = 1.0
+color_ramp = SubResource("Gradient_lu5fa")
+noise = SubResource("FastNoiseLite_2wuiv")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fedut"]
+albedo_color = Color(0.384314, 0.384314, 0.384314, 1)
+albedo_texture = SubResource("NoiseTexture2D_c3hu5")
+roughness = 0.41
+emission = Color(0.0588235, 0.0588235, 0.0588235, 1)
+emission_energy_multiplier = 0.0
+clearcoat_roughness = 1.0
+subsurf_scatter_strength = 1.0
+refraction_scale = -1.0
+grow_amount = -1.438
+
+[node name="World" type="Node3D"]
+script = ExtResource("1_gqydn")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_570qy")
+
+[node name="Ground" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(500, 1, 500)
+material = SubResource("StandardMaterial3D_ylpjh")
+
+[node name="Bawx" type="CSGBox3D" parent="."]
+transform = Transform3D(0.931081, 0, 0.364812, 0, 1, 0, -0.364812, 0, 0.931081, 2, 0.5, 0)
+material_override = SubResource("StandardMaterial3D_fedut")
+use_collision = true
+
+[node name="Bawx2" type="CSGBox3D" parent="."]
+transform = Transform3D(0.911094, 0, -0.412198, 0, 1, 0, 0.412198, 0, 0.911094, 1.98277, 0.882187, -2.24155)
+material_override = SubResource("StandardMaterial3D_fedut")
+use_collision = true
+size = Vector3(1, 1.68372, 1)
+
+[node name="Bawx3" type="CSGBox3D" parent="."]
+transform = Transform3D(0.888945, 0, 0.458014, 0, 1, 0, -0.458014, 0, 0.888945, 4.18987, 1.24362, -1.07445)
+material_override = SubResource("StandardMaterial3D_fedut")
+use_collision = true
+size = Vector3(1, 2.48724, 1)
+
+[node name="Player" parent="." instance=ExtResource("1_1c4b4")]
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
+light_angular_distance = 8.39
