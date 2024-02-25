@@ -18,6 +18,7 @@ public partial class World : Node3D
 			currentPlayer.Name = player.Id.ToString();
 			currentPlayer.SetPlayerUsername(player.Name);
 			AddChild(currentPlayer);
+			currentPlayer.GetNode<AudioManager>("ProxChat/AudioManager").SetupAudio(player.Id);
 
 			foreach (Node3D spawnPoint in GetTree().GetNodesInGroup("SpawnPoint")) {
 				if (int.Parse(spawnPoint.Name) == index) {

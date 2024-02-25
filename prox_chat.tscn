@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://jyl8cdtdydhm"]
+
+[ext_resource type="PackedScene" uid="uid://dfq2juvovaom1" path="res://audio_manager.tscn" id="1_at0v5"]
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_0c284"]
+
+[node name="ProxChat" type="Node3D"]
+
+[node name="AudioManager" parent="." instance=ExtResource("1_at0v5")]
+AudioOutputPath = NodePath("../AudioStreamPlayer3D")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamGenerator_0c284")
+autoplay = true

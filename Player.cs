@@ -12,6 +12,7 @@ public partial class Player : CharacterBody3D
 	[Export] private float mouseSensitivity = 0.01f;
 	private Vector3 syncPos = new Vector3(0, 0, 0); 
 	private Vector3 syncRot = new Vector3(0, 0, 0);
+	private Vector3 syncHand = new Vector3(0, 0, 0);
 
 	private float speed = 4.0f;
 
@@ -88,10 +89,12 @@ public partial class Player : CharacterBody3D
 
 			syncPos = GlobalPosition;
 			syncRot = Head.Rotation;
+			syncHand = Hand.Rotation;
 		} else {
 			//				i b leeeeeeeerpin             hehe
 			GlobalPosition = GlobalPosition.Lerp(syncPos, .1f);
 			Head.Rotation = Head.Rotation.Lerp(syncRot, .5f);
+			Hand.Rotation = Hand.Rotation.Lerp(syncHand, .1f);
 			Username.Rotation = GetNode<Node3D>("../"+(NodePath)Multiplayer.GetUniqueId().ToString()+"/Head").Rotation; // username facing observer
 
 		}
