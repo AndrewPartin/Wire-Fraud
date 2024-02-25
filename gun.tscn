@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cebep0v8n6yrs"]
+
+[ext_resource type="Script" path="res://Gun.cs" id="1_f0d41"]
+[ext_resource type="PackedScene" uid="uid://cou6v6phcogc0" path="res://bullet.tscn" id="2_yexa3"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_74vl3"]
+size = Vector3(0.2, 0.2, 1)
+
+[node name="Gun" type="Node3D"]
+script = ExtResource("1_f0d41")
+Bullet = ExtResource("2_yexa3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_74vl3")
+
+[node name="BulletSpawn" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00291491, 0, -0.501594)

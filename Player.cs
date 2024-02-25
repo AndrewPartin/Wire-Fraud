@@ -6,6 +6,8 @@ public partial class Player : CharacterBody3D
 {
 	public Node3D Head;
 	public Camera3D Camera;
+	public Label3D Username;
+	public Node3D Hand;
 
 	[Export] private float mouseSensitivity = 0.01f;
 	private Vector3 syncPos = new Vector3(0, 0, 0); 
@@ -23,6 +25,8 @@ public partial class Player : CharacterBody3D
     {
         Head = GetNode<Node3D>("Head");
 		Camera = GetNode<Camera3D>("Head/Camera3D");
+		Username = GetNode<Label3D>("Username");
+		Hand = GetNode<Node3D>("Hand");
 
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 
@@ -62,6 +66,10 @@ public partial class Player : CharacterBody3D
 				speed = 8.0f;
 			else if (Input.IsActionJustReleased("sprint"))
 				speed = 4.0f;
+			
+			if (Hand.Rotation != Camera.GlobalRotation) {
+				Hand.Basis = new Basis(Hand.Basis.GetRotationQuaternion().Slerp(Camera.GlobalBasis.GetRotationQuaternion(), 0.1f)); //lmao
+			}
 
 			// Get the input direction and handle the movement/deceleration.
 			// As good practice, you should replace UI actions with custom gameplay actions.
@@ -84,6 +92,8 @@ public partial class Player : CharacterBody3D
 			//				i b leeeeeeeerpin             hehe
 			GlobalPosition = GlobalPosition.Lerp(syncPos, .1f);
 			Head.Rotation = Head.Rotation.Lerp(syncRot, .5f);
+			Username.Rotation = GetNode<Node3D>("../"+(NodePath)Multiplayer.GetUniqueId().ToString()+"/Head").Rotation; // username facing observer
+
 		}
 	}
 

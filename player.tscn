@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://biu7fr1qn3wg8"]
+[gd_scene load_steps=6 format=3 uid="uid://biu7fr1qn3wg8"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_2eyei"]
+[ext_resource type="PackedScene" uid="uid://cebep0v8n6yrs" path="res://gun.tscn" id="2_34ffy"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_15v4i"]
 
@@ -38,3 +39,9 @@ text = "Username"
 replication_interval = 0.1
 delta_interval = 0.1
 replication_config = SubResource("SceneReplicationConfig_0ul1s")
+
+[node name="Hand" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Gun" parent="Hand" instance=ExtResource("2_34ffy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.488, -0.309568, -0.493)

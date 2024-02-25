@@ -9,7 +9,7 @@ public partial class ServerBrowser : Control
 	[Export] PacketPeerUdp listener = new();
 	[Export] int listenPort = 6970;
 	[Export] int hostPort = 6971;
-	[Export] string broadcastAddr = "10.11.31.255"; // for UC secure
+	[Export] string broadcastAddr = "255.255.255.255"; // for UC secure
 
 	[Export] PackedScene ServerInfo;
 

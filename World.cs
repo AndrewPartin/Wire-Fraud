@@ -26,8 +26,6 @@ public partial class World : Node3D
 			}
 			index++;
 		}
-
-		GD.Print("Cocked and loaded");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
