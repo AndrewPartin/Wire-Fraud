@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dfq2juvovaom1" path="res://audio_manager.tscn" id="1_at0v5"]
 
 [sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_0c284"]
+mix_rate = 48000.0
 
 [node name="ProxChat" type="Node3D"]
 

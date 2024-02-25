@@ -16,3 +16,5 @@ mesh = SubResource("CapsuleMesh_gbjxw")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_8iek8")
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

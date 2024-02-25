@@ -52,3 +52,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Gun" parent="Hand" instance=ExtResource("2_34ffy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.488, -0.309568, -0.493)
+
+[connection signal="Shoot" from="." to="Hand/Gun" method="_on_player_shoot"]

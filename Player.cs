@@ -19,6 +19,8 @@ public partial class Player : CharacterBody3D
 	public const float Acceleration = 0.5f;
 	public const float JumpVelocity = 4.5f;
 
+	[Signal] public delegate void ShootEventHandler();
+
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 
@@ -67,6 +69,10 @@ public partial class Player : CharacterBody3D
 				speed = 8.0f;
 			else if (Input.IsActionJustReleased("sprint"))
 				speed = 4.0f;
+
+			if (Input.IsActionJustPressed("shoot")) {
+				EmitSignal(SignalName.Shoot);
+			}
 			
 			if (Hand.Rotation != Camera.GlobalRotation) {
 				Hand.Basis = new Basis(Hand.Basis.GetRotationQuaternion().Slerp(Camera.GlobalBasis.GetRotationQuaternion(), 0.1f)); //lmao
