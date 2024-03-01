@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [audio]
 
+driver/driver="PipeWire"
 driver/enable_input=true
 
 [dotnet]

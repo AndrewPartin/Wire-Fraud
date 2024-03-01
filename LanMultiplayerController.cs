@@ -99,14 +99,14 @@ public partial class LanMultiplayerController : Control
 
 		var scene = ResourceLoader.Load<PackedScene>("res://world.tscn").Instantiate<Node3D>();
 		GetTree().Root.AddChild(scene);
-		this.Hide();
-		// this.QueueFree();
+		// this.Hide();
+		this.QueueFree();
 	}
 
 	[Rpc(mode: MultiplayerApi.RpcMode.AnyPeer)]
 	private void sendPlayerInfo(string name, long id)
 	{
-		PlayerInfo playerInfo = new PlayerInfo(){
+		PlayerInfo playerInfo = new PlayerInfo() {
 			Name = name,
 			Id = id
 		};
